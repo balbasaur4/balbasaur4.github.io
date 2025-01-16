@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Game</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-image: url('mlp background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid #7e57c2;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .text-container {
+            width: 90%;
+            text-align: center;
+            padding: 5px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #6a1b9a;
+            margin-top: 10px;
+        }
+
+        .title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #6a1b9a;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            font-size: 1em;
+            color: #4e4e4e;
+        }
+
+        .game-area {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-gap: 10px;
+            width: 100%;
+            height: 50%;
+            max-height: 280px;
+            flex: 1;
+            align-items: center;
+            justify-items: center;
+            margin-top: 20px;
+        }
+
+        .draggable {
+            width: 70px;
+            height: 70px;
+            background-color: #e0e0e0; /* Darker off-white color */
+            text-align: center;
+            line-height: 70px;
+            font-weight: bold;
+            cursor: grab;
+            margin: 5px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            background-size: contain; /* Ensures the image fits without stretching */
+            background-position: center;
+            background-repeat: no-repeat; /* Prevents repetition of the image */
+        }
+
+        .droppable {
+            width: 70px;
+            height: 70px;
+            border: 2px dashed #999;
+            text-align: center;
+            line-height: 70px;
+            font-weight: bold;
+            margin: 5px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            background-size: contain; /* Ensures the image fits without stretching */
+            background-position: center;
+            background-repeat: no-repeat; /* Prevents repetition of the image */
+        }
+
+        #popup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        #next-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #7e57c2;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none; /* Hide until all items are matched */
+        }
+
+        #next-button:hover {
+            background-color: #6a1b9a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-container">
+            <div class="title">Match the Cutie Marks!</div>
+            <div class="description">
+                Drag the cutie marks directly across and drop it in the dotted boxes respectively to know some examples of Generative AI platforms!
+            </div>
+        </div>
+
+        <div class="game-area">
+            <!-- Use your PNGs for draggable items -->
+            <div class="draggable" draggable="true" id="drag1" style="background-image: url('fluttershy\ cutiemark.png');"></div>
+            <div class="droppable" id="drop1"></div>
+            <div class="draggable" draggable="true" id="drag2" style="background-image: url('rarity\ cutiemark.png');"></div>
+            <div class="droppable" id="drop2"></div>
+            <div class="draggable" draggable="true" id="drag3" style="background-image: url('pinkiepie\ cutiemark.png');"></div>
+            <div class="droppable" id="drop3"></div>
+            <div class="draggable" draggable="true" id="drag4" style="background-image: url('rainbowdash\ cutiemark.png');"></div>
+            <div class="droppable" id="drop4"></div>
+        </div>
+
+        <div id="popup">
+            <p id="popup-message">Great Job! You've made a correct match!</p>
+            <img id="popup-image" src="" alt="Matched Item" style="width: 100px; height: 100px; margin-top: 10px;">
+            <button onclick="closePopup()">OK</button>
+        </div>
+
+        <button id="next-button" onclick="goToNextPage()">Next</button>
+    </div>
+
+    <script>
+        const draggables = document.querySelectorAll('.draggable');
+        const droppables = document.querySelectorAll('.droppable');
+        const popup = document.getElementById('popup');
+        const popupMessage = document.getElementById('popup-message');
+        const popupImage = document.getElementById('popup-image');
+        const nextButton = document.getElementById('next-button');
+
+        const popupContent = {
+            1: {
+                message: 'Nice! CHATGPT is AI chatbot that generates human-like summaries from a custom prompt.',
+                image: 'chatgpt icon.webp'
+            },
+            2: {
+                message: 'Good job! LEONARDO AI is an AI-powered platform that creates images, videos, and 3D textures based on text prompts.',
+                image: 'leonardo ai.png'
+            },
+            3: {
+                message: 'Oh dear... Google is not primarily known as GEN AI but more of a search engine. (but it has many AI-powered products)',
+                image: 'google icon.webp'
+            },
+            4: {
+                message: 'You are right! COMPOSE AI is a free Chrome extension that helps automate your writing using AI.',
+                image: 'compose ai.png'
+            }
+        };
+
+        let matches = {
+            1: false,
+            2: false,
+            3: false,
+            4: false
+        };
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+            });
+        });
+
+        droppables.forEach(droppable => {
+            droppable.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            droppable.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const data = e.dataTransfer.getData('text');
+                const draggedElement = document.getElementById(data);
+                const matchNumber = data.charAt(data.length - 1);
+
+                // Check if the correct item is dropped
+                if (droppable.id === `drop${matchNumber}`) {
+                    if (matchNumber === '3') {
+                        // Google item should turn red on correct match
+                        droppable.style.backgroundColor = '#ffcccc'; // Red for correct Google match
+                    } else {
+                        droppable.style.backgroundColor = '#ccffcc'; // Green for other correct matches
+                    }
+                    droppable.style.backgroundImage = draggedElement.style.backgroundImage; // Copy image from dragged element
+                    matches[matchNumber] = true;
+                    checkForNextButton();
+                    showPopup(matchNumber);
+                } else {
+                    droppable.style.backgroundColor = '#ffcccc'; // Incorrect match (red)
+                    droppable.style.backgroundImage = draggedElement.style.backgroundImage; // Show the dragged element image
+                    showPopup(matchNumber, false); // Show a popup for the wrong match
+                }
+            });
+        });
+
+        function checkForNextButton() {
+            if (Object.values(matches).every(value => value === true)) {
+                nextButton.style.display = 'block'; // Show next button when all matches are made
+            }
+        }
+
+        function showPopup(matchNumber, isCorrect = true) {
+            // Update popup content based on correct/incorrect match
+            if (isCorrect) {
+                popupMessage.textContent = popupContent[matchNumber].message;
+            } else {
+                popupMessage.textContent = 'Oops! That\'s not the correct match!';
+            }
+            popupImage.src = popupContent[matchNumber].image;
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        function goToNextPage() {
+            // Redirect to the next page (modify the URL accordingly)
+            window.location.href = 'questmlp2.html';
+        }
+    </script>
+
+<audio id="bgm" loop autoplay>
+    <source src="My Little Pony_ Friendship Is Magic Theme (Extended Instrumental).mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+</body>
+</html>

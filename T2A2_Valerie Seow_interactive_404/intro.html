@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twilight Sparkle's Gen AI Briefing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Added font -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', monospace; /* Retro typing-style font */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Light background to ensure the page is visible */
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-image: url('mlp background.png'); /* Placeholder for Equestria background */
+            background-size: cover; /* Ensures the background covers the container area */
+            background-position: center; /* Centers the background image */
+            background-repeat: no-repeat; /* Prevents the background from repeating */
+            border: 2px solid #7e57c2;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .text-container {
+            width: 90%; /* Ensures both title and description are wide */
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8); /* Light background for readability */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Nice shadow effect for clarity */
+            border: 2px solid #6a1b9a; /* Merged border for both title and description */
+        }
+
+        .title {
+            font-size: 1.6em; /* Reduced font size */
+            font-weight: bold;
+            color: #6a1b9a;
+            margin-bottom: 10px;
+            line-height: 1.6; /* Increased line height */
+        }
+
+        .description {
+            font-size: 0.8em; /* Reduced font size */
+            color: #4e4e4e;
+            line-height: 1.8; /* Increased line height for better spacing */
+        }
+
+        .start-button {
+            background-color: #6a1b9a;
+            color: #fff;
+            font-size: 1.2em; /* Increased font size */
+            font-weight: bold;
+            padding: 12px 35px; /* Increased padding */
+            border: none;
+            border-radius: 25px; /* Increased border radius for a bigger look */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .start-button:hover {
+            background-color: #8e24aa;
+        }
+
+        .pony {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 150px; /* Reduced width */
+            opacity: 0.95;
+            z-index: 2;
+        }
+
+        .cutie-mark {
+            position: absolute;
+            width: auto;
+            height: 70px; /* Reduced height */
+            z-index: 1;
+            object-fit: contain; /* Ensure the image scales correctly */
+            transition: all 0.3s ease;
+        }
+
+        .cutie-mark:nth-of-type(1) {
+            top: 10px;
+            left: 10px; /* Top-left corner */
+            height: 80px; /* Slightly larger */
+        }
+
+        .cutie-mark:nth-of-type(2) {
+            top: 10px;
+            right: 10px; /* Top-right corner */
+            height: 80px;
+        }
+
+        .cutie-mark:nth-of-type(3) {
+            top: 10px; /* Shifted to top middle */
+            left: 50%;
+            transform: translateX(-50%); /* Centered horizontally */
+            height: 80px;
+        }
+
+        .cutie-mark:nth-of-type(4) {
+            bottom: 10px;
+            left: 50%; /* Bottom-center */
+            transform: translateX(-50%);
+            height: 80px;
+        }
+
+        .cutie-mark:nth-of-type(5) {
+            top: 10px;
+            left: 10px; /* Shifted to top left corner */
+            height: 80px;
+        }
+
+        .cutie-mark:nth-of-type(6) {
+            bottom: 10px;
+            right: 10px; /* Bottom-right corner */
+            height: 80px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-container">
+            <div class="title">Defeat GEN AI: Save Equestria!</div>
+            <div class="description">
+                An error occurred in Generative AI's system, and it is disrupting Equestria! Twilight Sparkle needs your help. 
+                Join her on this magical journey to help her friends regain their cutie marks and reboot the system!
+            </div>
+        </div>
+        <button class="start-button" onclick="startGame()">Start Quest</button>
+        <img src="twilight worried.png" alt="Twilight Sparkle" class="pony">
+        <img src="pinkiepie cutiemark.png" alt="Cutie Mark 1" class="cutie-mark">
+        <img src="rarity cutiemark.png" alt="Cutie Mark 2" class="cutie-mark">
+        <img src="rainbowdash cutiemark.png" alt="Cutie Mark 3" class="cutie-mark">
+        <img src="applejack cutiemark.png" alt="Cutie Mark 4" class="cutie-mark">
+        <img src="fluttershy cutiemark.png" alt="Cutie Mark 5" class="cutie-mark">
+    </div>
+
+    <script>
+        function startGame() {
+            window.location.href = "startquest.html";  // Replace with the actual page URL you want to redirect to
+        }
+    </script>
+
+<audio id="bgm" loop autoplay>
+    <source src="My Little Pony_ Friendship Is Magic Theme (Extended Instrumental).mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+</body>
+</html>

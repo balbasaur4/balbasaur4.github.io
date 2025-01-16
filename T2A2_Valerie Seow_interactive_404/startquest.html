@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twilight Sparkle's Gen AI Briefing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Added font -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', monospace; /* Retro typing-style font */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Light background to ensure the page is visible */
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-image: url('mlp background.png'); /* Equestria background inside the container */
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #7e57c2; /* Purple border */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            justify-content: flex-end; /* Align items towards the bottom */
+        }
+
+        .npc-name {
+            position: absolute;
+            top: 260px; /* Positioned at the top-left */
+            left: 277px; /* Align to the left */
+            color: #ffffff; /* White text color for contrast */
+            font-size: 1em; /* Adjusted font size */
+            padding: 8px 20px; /* Padding for the text */
+            z-index: 3; /* Above the NPC box */
+            font-weight: bold; /* Bold text for emphasis */
+            background-color: #7e57c2; /* Purple background */
+            border: 2px solid #4b396b; /* Darker purple border */
+            border-radius: 8px; /* Slightly curved edges */
+        }
+
+        .npc-box {
+            background-color: rgba(255, 255, 255, 0.8); /* Light background to blend with the color scheme */
+            border: 2px solid #7e57c2; /* Purple border */
+            border-radius: 8px;
+            padding: 20px; /* Adjusted padding */
+            font-size: 0.8em; /* Typing-style font is smaller by default */
+            color: #7e57c2; /* Matching purple text */
+            width: 65%; /* Width remains larger */
+            position: absolute;
+            bottom: 80px; /* Higher from the bottom */
+            right: 1.5%; /* More shifted to the right */
+            display: flex;
+            flex-direction: row; /* Arrange text and buttons horizontally */
+            justify-content: space-between; /* Space out text and buttons */
+            align-items: flex-start; /* Align the text to the top */
+            gap: 10px;
+        }
+
+        .npc-text {
+            flex: 1; /* Take remaining space */
+            margin-right: 10px; /* Create space between text and buttons */
+            line-height: 1.8; /* Increase line spacing for a more spread-out look */
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: auto; /* Fit the width of the buttons */
+            align-items: flex-end; /* Align buttons to the right */
+        }
+
+        .choice-button {
+            background-color: #7e57c2; /* Purple button */
+            color: white;
+            font-family: 'Press Start 2P', monospace; /* Consistent font */
+            font-size: 0.8em; /* Adjusted for typing style */
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: auto; /* Fit the button width to the text content */
+            max-width: 300px; /* Max width to avoid too large buttons */
+        }
+
+        .choice-button:hover {
+            background-color: #9c63d7; /* Lighter purple hover effect */
+        }
+
+        .twilight-image {
+            position: absolute;
+            bottom: 60px; /* Position above the NPC box */
+            left: 8px; /* Place it near the bottom-left */
+            width: 263px; /* Adjust the size for balance */
+            height: auto;
+            z-index: 2; /* Ensure it's above the background but below the text box */
+            animation: fadeIn 0.5s ease-out; /* Smooth fade-in animation */
+        }
+
+        /* Keyframes for fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Nameplate for Twilight Sparkle -->
+        <div class="npc-name" id="npcName">Twilight Sparkle</div>
+
+        <div class="npc-box" id="npcBox">
+            <div class="npc-text" id="npcText">
+                Hey, Twilight Sparkle here! You heard what happened to Generative AI's system right... Are you ready to help?
+            </div>
+
+            <div class="choices" id="choicesContainer">
+                <button class="choice-button" onclick="selectAnswer(1)">Yes, I'm ready!</button>
+                <button class="choice-button" onclick="selectAnswer(2)">No...but let's go!</button>
+            </div>
+        </div>
+
+        <!-- Twilight Image -->
+        <img src="twilight worried.png" alt="Twilight Sparkle" class="twilight-image" id="twilightImage">
+    </div>
+
+    <script>
+ let currentStep = 0;
+
+// Function to handle player choices and NPC responses
+function selectAnswer(choice) {
+    // Hide Twilight Sparkle's name when a choice is selected
+    document.getElementById("npcName").style.display = "none";
+
+    if (currentStep === 0) {
+        if (choice === 1) {
+            setNpcMessage("Amazing! But first, let me share with you some information about Gen AI that might be useful for you during your quest.");
+            setChoices(["Go ahead!", "Alright, please do."]);
+        } else {
+            setNpcMessage("Oh... don't worry! Here, let me share more about Gen AI with you to help you along the way.");
+            setChoices(["Go ahead!", "Alright, please do."]);
+        }
+    } else if (currentStep === 1) {
+        if (choice === 1) {
+            setNpcMessage("Generative AI is a type of AI that specialises in creating new content rather than just processing existing information. It feels like you're chatting with an intelligent friend.");
+            setChoices(["What are the benefits and risks of Gen AI?"]);
+        } else {
+            setNpcMessage("Generative AI is a type of AI that specialises in creating new content rather than just processing existing information. It feels like you're chatting with an intelligent friend.");
+            setChoices(["What are the benefits and risks of Gen AI?"]);
+        }
+    } else if (currentStep === 2) {
+        if (choice === 1) {
+            setNpcMessage("Some benefits of Gen AI include its efficiency, diverse outputs, personalisation of different users, and customisation. As for the risks, some include data privacy concerns, a tendency for Gen AI to 'hallucinate' and produce false information that leads to misinformation being spread around, as well as copyright issues.");
+            setChoices(["What counts as a good prompt?", "How do we avoid such risks?"]);
+        }
+    } else if (currentStep === 3) {
+    if (choice === 1) {
+        setNpcMessage("A good prompt consists of: Persona, Task, Audience, Context, and Format.");
+        setChoices(["Thank you! I will see some examples of GEN AI platforms now."]);
+    } else {
+        setNpcMessage("Adopt the S.U.R.E framework! (SOURCE, UNDERSTAND, RESEARCH, EVALUATE). Make sure the source is credible and reliable, look for facts rather than opinions, check and compare different sources, and exercise fair judgment.");
+        setChoices(["Thanks! I will see some examples of GEN AI platforms now."]);
+    }
+} else if (currentStep === 4) {
+    if (choice === 1) {
+        window.location.href = "questmlp.html"; // Redirect to the new page
+    }
+} else if (currentStep === 5) {
+    if (choice === 1) {
+        window.location.href = "questmlp.html"; // Redirect to the same new page
+    }
+}
+
+    // Increment currentStep to move to the next step
+    currentStep++;
+}
+
+function setNpcMessage(message) {
+    document.getElementById("npcText").innerText = message;
+}
+
+function setChoices(choices) {
+    const container = document.getElementById("choicesContainer");
+    container.innerHTML = '';  // Clear existing buttons
+
+    choices.forEach((choice, index) => {
+        const button = document.createElement("button");
+        button.classList.add("choice-button");
+        button.innerText = choice;
+        button.onclick = () => selectAnswer(index + 1);  // Adjust index to match choices
+        container.appendChild(button);
+    });
+}
+
+    </script>
+
+<audio id="bgm" loop autoplay>
+    <source src="My Little Pony_ Friendship Is Magic Theme (Extended Instrumental).mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+</body>
+</html>

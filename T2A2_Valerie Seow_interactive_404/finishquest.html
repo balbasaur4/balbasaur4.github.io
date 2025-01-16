@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Fade In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Added font -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif; /* Default font */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-image: url('mlp background.png'); /* Replace with your desired background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid #7e57c2;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Align images at the bottom */
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .npc-text-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #7e57c2; /* Matching purple border */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 65%; /* Same width as before */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the text box */
+            text-align: center;
+            font-family: 'Press Start 2P', monospace; /* Monospace font for text box */
+            font-size: 0.9em; /* Adjusted for a readable size */
+            color: #7e57c2; /* Purple text color */
+            line-height: 1.5; /* Increased line-height for more spacing */
+        }
+
+        .images-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInImages 2s forwards;
+        }
+
+        .image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            opacity: 0;
+            animation: fadeInImage 1s forwards;
+        }
+
+        .image:nth-child(1) {
+            animation-delay: 2s;
+        }
+
+        .image:nth-child(2) {
+            animation-delay: 3s;
+        }
+
+        .image:nth-child(3) {
+            animation-delay: 4s;
+        }
+
+        .image:nth-child(4) {
+            animation-delay: 5s;
+        }
+
+        .image:nth-child(5) {
+            animation-delay: 6s;
+        }
+
+        .image:nth-child(6) {
+            animation-delay: 7s;
+        }
+
+        .additional-images {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px; /* Adjust this value if needed to control the space */
+            opacity: 0;
+            animation: fadeInAdditionalImages 2s forwards;
+            animation-delay: 7s; /* Start fading after Rainbow Dash */
+            position: absolute; /* Fixed position near the top */
+            top: 20px; /* Positioned near the top */
+            transform: translateX(125px); /* Shift the entire container 40px more to the right */
+        }
+
+        .additional-images .image {
+            width: 120px; /* Slightly smaller size */
+            height: 120px;
+            object-fit: contain;
+            opacity: 0;
+            animation: fadeInImage 2s forwards;
+        }
+
+        @keyframes fadeInImages {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInImage {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInAdditionalImages {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="npc-text-box">
+            <p>You did it! You helped reboot the Generative AI system, and we got our cutie marks back thanks to you! </p>
+        </div>
+        <div class="images-container">
+            <img class="image" src="twilight.png" alt="Twilight Sparkle">
+            <img class="image" src="pinkiepie.png" alt="Pinkie Pie">
+            <img class="image" src="fluttershy.png" alt="Fluttershy">
+            <img class="image" src="rarity.png" alt="Rarity">
+            <img class="image" src="applejack.png" alt="Applejack">
+            <img class="image" src="rainbowdash.png" alt="Rainbow Dash">
+        </div>
+
+        <!-- Additional 5 images -->
+        <div class="additional-images">
+            <img class="image" src="pinkiepie cutiemark.png" alt="Image 1">
+            <img class="image" src="fluttershy cutiemark.png" alt="Image 2">
+            <img class="image" src="rarity cutiemark.png" alt="Image 3">
+            <img class="image" src="applejack cutiemark.png" alt="Image 4">
+            <img class="image" src="rainbowdash cutiemark.png" alt="Image 5">
+        </div>
+    </div>
+
+    <audio id="bgm" loop autoplay>
+      <source src="My Little Pony_ Friendship Is Magic Theme (Extended Instrumental).mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+  </audio>
+  
+</body>
+</html>
